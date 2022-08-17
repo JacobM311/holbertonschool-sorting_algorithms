@@ -8,21 +8,29 @@
 
 void selection_sort(int *array, size_t size)
 {
-	size_t i, min_idx, step;
+	unsigned int i, j, idx;
+	int min, flag = 0;
 
 	if (array == NULL)
 		return;
-
-	for (step = 0; step < size - 1; step++)
+	for (i = 0; i < size - 1; i++)
 	{
-		min_idx = step;
-		for (i = step + 1; i < size; i++)
+		min = array[i];
+		for (j = i; j < size; j++)
 		{
-			if (array[i] < array[min_idx])
-			min_idx = i;
+			if (array[j] < min)
+			{
+				min = array[j];
+				idx = j;
+				flag = 1;
+			}
+			if ((flag == 1) && (j == size - 1))
+			{
+				swap(&array[idx], &array[i]);
+				print_array(array, size);
+			}
 		}
-		swap(&array[min_idx], &array[step]);
-		print_array(array, size);
+		flag = 0;
 	}
 }
 
